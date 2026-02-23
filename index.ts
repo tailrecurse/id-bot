@@ -42,7 +42,7 @@ const server = Bun.serve({
 
     const update = (await req.json()) as Update;
     const msg = update.message;
-    if (!msg?.text?.startsWith('/start') || !msg?.text?.startsWith('/id') || !msg.from)
+    if ((!msg?.text?.startsWith('/start') && !msg?.text?.startsWith('/id')) || !msg.from)
       return new Response('OK');
 
     const chatId = msg.chat.id;
