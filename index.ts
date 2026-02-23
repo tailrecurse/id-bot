@@ -2,9 +2,10 @@ import type { TelegramMethodMap, Update } from './telegram.ts';
 
 const BOT_TOKEN = process.env.BOT_TOKEN;
 const WEBHOOK_URL = process.env.WEBHOOK_URL;
+const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET;
 
-if (!BOT_TOKEN || !WEBHOOK_URL) {
-    console.error('Missing BOT_TOKEN or WEBHOOK_URL');
+if (!BOT_TOKEN || !WEBHOOK_URL || !WEBHOOK_SECRET) {
+    console.error('Missing BOT_TOKEN, WEBHOOK_URL, or WEBHOOK_SECRET');
     process.exit(1);
 }
 
@@ -25,7 +26,7 @@ await tg('setMyCommands', {
     commands: [{ command: 'id', description: 'Show chat and user IDs' }],
 });
 
-await tg('setWebhook', { url: WEBHOOK_URL });
+await tg('setWebhook', { url: WEBHOOK_URL, secret_token: WEBHOOK_SECRET });
 
 console.log(`Webhook set to ${WEBHOOK_URL}`);
 
@@ -33,6 +34,8 @@ const server = Bun.serve({
     port: Number(process.env.PORT) || 3000,
     async fetch(req) {
         if (req.method !== 'POST') return new Response('OK');
+        if (req.headers.get('X-Telegram-Bot-Api-Secret-Token') !== WEBHOOK_SECRET)
+            return new Response('Unauthorized', { status: 401 });
 
         const update = await req.json() as Update;
         const msg = update.message;
