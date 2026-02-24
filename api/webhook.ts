@@ -30,5 +30,8 @@ export async function POST(req: Request) {
     parse_mode: 'HTML',
   });
 
+  const username = msg.from.username ? `@${msg.from.username}` : msg.from.first_name;
+  console.log(`/id requested by ${username} (user=${userId}, chat=${chatId}, ${chatType})`);
+
   return new Response('OK');
 }
