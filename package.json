@@ -1,19 +1,18 @@
 {
   "name": "id-bot",
-  "module": "index.ts",
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "bun --watch index.ts",
-    "start": "bun index.ts",
+    "vercel": "vercel",
+    "setup": "if [ -f .env ]; then tsx --env-file=.env scripts/setup.ts; else tsx scripts/setup.ts; fi",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },
   "devDependencies": {
-    "@types/bun": "latest",
-    "prettier": "^3.8.1"
-  },
-  "peerDependencies": {
-    "typescript": "^5"
+    "@types/node": "^25.3.0",
+    "prettier": "^3.8.1",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3",
+    "vercel": "^50.22.1"
   }
 }
