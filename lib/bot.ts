@@ -1,4 +1,4 @@
-import type { TelegramMethodMap } from './telegram';
+import type { TelegramMethodMap } from './telegram.js';
 
 export function getWebhookUrl(): string {
   if (process.env.WEBHOOK_URL) return process.env.WEBHOOK_URL;

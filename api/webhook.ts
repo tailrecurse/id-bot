@@ -1,5 +1,5 @@
-import type { Update } from '../lib/telegram';
-import { tg } from '../lib/bot';
+import type { Update } from '../lib/telegram.js';
+import { tg } from '../lib/bot.js';
 
 const BOT_TOKEN = process.env.BOT_TOKEN!;
 const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET!;

@@ -1,4 +1,4 @@
-import { tg, getWebhookUrl } from '../lib/bot';
+import { tg, getWebhookUrl } from '../lib/bot.js';
 
 const BOT_TOKEN = process.env.BOT_TOKEN;
 const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET;
